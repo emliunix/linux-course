@@ -1,0 +1,12 @@
+/.vscode/.browse.VC.db
+*.o
+*~
+*.out
+cscope.*
+*.mod.c
+*.ko
+*.cmd
+*.symvers
+*.order
+.tmp_versions/
+cscope.files
