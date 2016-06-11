@@ -19,10 +19,13 @@ MODULE_DESCRIPTION("Hello world!!! char device");
 MODULE_VERSION("0.1");
 MODULE_SUPPORTED_DEVICE(DEVICENAME);
 
-static char* name = "Liu Yuhui";
+//static char* name = "Liu Yuhui";
 //module_param(name, charp, 0/* S_IRUGO | S_IWUGO */);
-static char* id = "024";
+//static char* id = "024";
 //module_param(id, charp, 0/* S_IRUGO | S_IWUGO */);
+
+static char* message = "Liu Yuhui 024";
+module_param(message, charp, 0644);
 
 static dev_t devnum_start;
 static struct cdev*   cdev;
@@ -104,8 +107,8 @@ int __init hello_init(void) {
            (int)MINOR(devnum_start));
     kobject_uevent(&cdev->kobj, KOBJ_ADD);
     
-    // init msg buf
-    msg_len = snprintf(msg_buf, BUF_LENGTH, "name: %s\tid: %s\n", name, id);
+    /* // init msg buf */
+    /* msg_len = snprintf(msg_buf, BUF_LENGTH, "name: %s\tid: %s\n", name, id); */
     return 0;
 
  device_err:
@@ -145,8 +148,12 @@ ssize_t hello_read(struct file *file,
                    char *buf,
                    size_t length,
                    loff_t *offset) {
-    char* msg_ptr = msg_buf;
+
     int bytes_read = 0;
+    char* msg_ptr = NULL;
+    msg_len = snprintf(msg_buf, BUF_LENGTH, "%s", message);
+
+    msg_ptr = msg_buf;
     while(length && *msg_ptr) {
         put_user(*(msg_ptr++), buf++);
         

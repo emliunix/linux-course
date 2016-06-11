@@ -17,6 +17,6 @@ int main(void) {
 
     int len = read(fd, buf, BUF_SIZE - 1);
     buf[len] = '\0';
-    fputs(buf, stdout);
+    puts(buf);
     return 0;
 }
