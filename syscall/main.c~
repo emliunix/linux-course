@@ -1,0 +1,7 @@
+#include <unistd.h>
+#include <sys/syscall.h>
+
+int main(void) {
+  long ret = syscall(327);
+  return ret;
+}
